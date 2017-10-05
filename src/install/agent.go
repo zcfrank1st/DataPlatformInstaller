@@ -1,5 +1,5 @@
 package main
 
 func main() {
-    // run agent
+    print("hello world")
 }
