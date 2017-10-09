@@ -6,6 +6,7 @@ import (
     "fmt"
     "github.com/logrusorgru/aurora"
     "module"
+    "strings"
 )
 
 // tips: all machines need to be ssh
@@ -22,7 +23,7 @@ func readConsole() string{
 }
 
 func printStep(step int, moduleName string) {
-    fmt.Println(aurora.Green(fmt.Sprintf("%d) Install %s? (Y/N)", step, moduleName)))
+    fmt.Println(aurora.Green(fmt.Sprintf("%d) Install %s? (Yy/Nn)", step, moduleName)))
 }
 
 func printAlert() {
@@ -33,6 +34,9 @@ func installModule(moduleName string) {
     // todo 传参问题，角色问题
     switch moduleName {
     case "Hadoop":
+        fmt.Println("ips: ")
+        ips := readConsole()
+        fmt.Println(ips)
         module.InstallHadoop()
     case "Spark":
         module.InstallSpark()
@@ -45,11 +49,11 @@ func installModule(moduleName string) {
 
 func installLoop(moduleName string) {
     for {
-        input := readConsole()
-        if "Y" == input {
+        inputIgnoreCase := strings.ToLower(readConsole())
+        if "y" == inputIgnoreCase {
             installModule(moduleName)
             break
-        } else if "N" == input {
+        } else if "n" == inputIgnoreCase {
             break
         } else {
             printAlert()
