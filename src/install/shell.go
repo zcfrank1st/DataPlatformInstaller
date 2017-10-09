@@ -42,11 +42,6 @@ func installLoop(moduleName string) {
     }
 }
 
-func installHadoop() {}
-func installSpark(){}
-func installFlume(){}
-func installSqoop(){}
-
 func installModule (step int, moduleName string) {
     printStep(step, moduleName)
     installLoop(moduleName)
