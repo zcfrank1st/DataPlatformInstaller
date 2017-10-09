@@ -4,7 +4,10 @@ import (
     "bufio"
     "os"
     "fmt"
+    "github.com/logrusorgru/aurora"
 )
+
+// tips: all machines need to be ssh
 
 var scanner *bufio.Scanner
 
@@ -12,41 +15,63 @@ func init () {
     scanner = bufio.NewScanner(os.Stdin)
 }
 
-// tips: all machines need to be ssh
 func readConsole() string{
     scanner.Scan()
     return scanner.Text()
 }
 
+func printStep(step int, moduleName string) {
+    fmt.Println(aurora.Green(fmt.Sprintf("%d) Install %s? (Y/N)", step, moduleName)))
+}
+
+func printAlert() {
+    fmt.Println(aurora.Red("not support input, please retry"))
+}
+
+func installLoop(moduleName string) {
+    for {
+        input := readConsole()
+        if "Y" == input {
+            // todo input ip(s) to install modules
+            break
+        } else if "N" == input {
+            break
+        } else {
+            printAlert()
+        }
+    }
+}
+
+func installHadoop() {}
+func installSpark(){}
+func installFlume(){}
+func installSqoop(){}
+
+func installModule (step int, moduleName string) {
+    printStep(step, moduleName)
+    installLoop(moduleName)
+}
+
 
 func main() {
-    // TODO  install modules
-    fmt.Println(`
+    fmt.Println(aurora.Blue(`
  ____  ____ ___
 |  _ \|  _ \_ _|
 | | | | |_) | |
 | |_| |  __/| |
-|____/|_|  |___| v0.1`)
+|____/|_|  |___| v0.1`))
 
     fmt.Println()
-    fmt.Println("1) Install Hadoop? (Y/N)")
 
-    for {
-        hadoopInput := readConsole()
-        if "Y" == hadoopInput {
-            fmt.Println(hadoopInput)
-            fmt.Println("install")
-            break
-        } else if "N" == hadoopInput {
-            fmt.Println("not install")
-            break
-        } else {
-            fmt.Println("not support input, please retry")
-        }
-    }
+    moduleName := "Hadoop"
+    installModule(1, moduleName)
 
+    moduleName = "Spark"
+    installModule(2, moduleName)
 
-    fmt.Println("2) Install Spark? (Y/N)")
-    fmt.Println("3) Install Sqoop? (Y/N)")
-    fmt.Println("4) Install Flume? (Y/N)")
+    moduleName = "Sqoop"
+    installModule(3, moduleName)
+
+    moduleName = "Flume"
+    installModule(4, moduleName)
 }
