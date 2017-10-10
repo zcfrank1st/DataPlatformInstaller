@@ -9,7 +9,11 @@ import (
     "strings"
 )
 
-// tips: all machines need to be ssh
+// tips:
+// all machines need to be ssh
+// roles must defined first
+// java install
+// scala install
 
 var scanner *bufio.Scanner
 
