@@ -11,7 +11,6 @@ import (
 
 // tips:
 // all machines need to be ssh
-// roles must defined first
 // java install
 // scala install
 
