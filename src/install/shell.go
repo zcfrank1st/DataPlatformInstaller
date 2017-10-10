@@ -42,8 +42,7 @@ func installModule(moduleName string) {
         module.InstallSpark()
     case "Flume":
         module.InstallFlume()
-    case "Sqoop":
-        module.InstallSqoop()
+    // todo install hive, then use spark sql，it depends
     }
 }
 
@@ -83,9 +82,6 @@ func main() {
     moduleName = "Spark"
     installPhase(2, moduleName)
 
-    moduleName = "Sqoop"
-    installPhase(3, moduleName)
-
     moduleName = "Flume"
-    installPhase(4, moduleName)
+    installPhase(3, moduleName)
 }
