@@ -12,7 +12,6 @@ import (
 // tips:
 // all machines need to be ssh
 // java install
-// scala install
 
 var scanner *bufio.Scanner
 
@@ -41,11 +40,14 @@ func installModule(moduleName string) {
         ips := readConsole()
         fmt.Println(ips)
         module.InstallHadoop()
-    case "Spark":
-        module.InstallSpark()
-    case "Flume":
-        module.InstallFlume()
-    // todo install hive, then use spark sql，it depends
+    case "Zookeeper":
+    case "Hbase":
+    case "Kafka":
+    case "Storm":
+    //case "Spark":
+    //    module.InstallSpark()
+    //case "Flume":
+    //    module.InstallFlume()
     }
 }
 
@@ -82,9 +84,15 @@ func main() {
     moduleName := "Hadoop"
     installPhase(1, moduleName)
 
-    moduleName = "Spark"
+    moduleName = "Zookeeper"
     installPhase(2, moduleName)
 
-    moduleName = "Flume"
+    moduleName = "Hbase"
     installPhase(3, moduleName)
+
+    moduleName = "Kafka"
+    installPhase(4, moduleName)
+
+    moduleName = "Storm"
+    installPhase(5, moduleName)
 }
