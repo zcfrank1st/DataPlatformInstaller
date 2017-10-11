@@ -5,6 +5,6 @@ DataPlatformInstaller
 
 ## Description
 
-current version contains `hadoop`, `spark`, `flume`, `sqoop`
+current version contains `hadoop`, `zookeeper`, `hbase`, `kafka`, `storm`
 
 ## Licence
