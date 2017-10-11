@@ -1,6 +1,5 @@
 package module
 
-
 func InstallStorm() {
 
 }
