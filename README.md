@@ -1,7 +1,7 @@
 DataPlatformInstaller
 =======
 
-> A mini data platform installer
+> A commandline data platform installer
 
 ## Description
 
