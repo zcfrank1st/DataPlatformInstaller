@@ -9,10 +9,6 @@ import (
     "strings"
 )
 
-// tips:
-// all machines need to be ssh
-// java install
-
 var scanner *bufio.Scanner
 
 func init () {
@@ -33,7 +29,7 @@ func printAlert() {
 }
 
 func installModule(moduleName string) {
-    // todo 传参问题，角色问题
+    // todo
     switch moduleName {
     case "Hadoop":
         fmt.Println("ips: ")
@@ -44,10 +40,9 @@ func installModule(moduleName string) {
     case "Hbase":
     case "Kafka":
     case "Storm":
-    //case "Spark":
-    //    module.InstallSpark()
-    //case "Flume":
-    //    module.InstallFlume()
+
+    case "DPMonitor":
+    case "DPMetrics":
     }
 }
 
@@ -95,4 +90,12 @@ func main() {
 
     moduleName = "Storm"
     installPhase(5, moduleName)
+
+    extraModule := "DPMonitor"
+    installPhase(6, extraModule)
+
+    extraModule = "DPMetrics"
+    installPhase(7, extraModule)
+
+    // todo: write config to let ui and monitor use
 }
