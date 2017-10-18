@@ -7,6 +7,7 @@ import (
     "github.com/logrusorgru/aurora"
     "module"
     "strings"
+    "util"
 )
 
 var scanner *bufio.Scanner
@@ -16,25 +17,39 @@ func init () {
 }
 
 func readConsole() string{
-    scanner.Scan()
-    return scanner.Text()
-}
-
-func printStep(step int, moduleName string) {
-    fmt.Println(aurora.Green(fmt.Sprintf("%d) Install %s? (Yy/Nn)", step, moduleName)))
+    for {
+        scanner.Scan()
+        text := scanner.Text()
+        if "" != text {
+            return text
+        }
+    }
 }
 
 func printAlert() {
-    fmt.Println(aurora.Red("not support input, please retry"))
+    fmt.Println(aurora.Red("[ERROR] Not support input, please retry !"))
+}
+
+func printInstallStep(step int, moduleName string) {
+    fmt.Println(aurora.Green(fmt.Sprintf("%d) Install %s? (Yy/Nn)", step, moduleName)))
+}
+
+func printNodes() {
+    fmt.Println(aurora.Magenta(fmt.Sprintf("IPs from %s", util.Nodes)))
 }
 
 func installModule(moduleName string) {
-    // todo
+    printNodes()
     switch moduleName {
     case "Hadoop":
-        fmt.Println("ips: ")
-        ips := readConsole()
-        fmt.Println(ips)
+        fmt.Println(aurora.Green("[Master]: "))
+        master := readConsole()
+        fmt.Println(master)
+
+        fmt.Println(aurora.Green("[Slaves]: "))
+        slaves := readConsole()
+        fmt.Println(slaves)
+
         module.InstallHadoop()
     case "Zookeeper":
     case "Hbase":
@@ -61,7 +76,7 @@ func installLoop(moduleName string) {
 }
 
 func installPhase (step int, moduleName string) {
-    printStep(step, moduleName)
+    printInstallStep(step, moduleName)
     installLoop(moduleName)
 }
 
@@ -76,26 +91,52 @@ func main() {
 
     fmt.Println()
 
-    moduleName := "Hadoop"
-    installPhase(1, moduleName)
 
-    moduleName = "Zookeeper"
-    installPhase(2, moduleName)
+    //初始安装licence，增加节点licence
+    fmt.Println(aurora.BgGray(aurora.Black("@@ Please input install licence :")))
+    typ, err, num := util.CheckLicence(readConsole())
+    if err != nil {
+        fmt.Println(aurora.Red("[ERROR] Invalid Licence !"))
+        os.Exit(1)
+    }
 
-    moduleName = "Hbase"
-    installPhase(3, moduleName)
+    fmt.Println(aurora.Green("Please input Nodes IPs (use , to split) :"))
+    err1 := util.CheckLicencedIPs(num, readConsole())
+    if err1 != nil {
+        fmt.Println(aurora.Red("[ERROR] Invalid Input IPs !"))
+        os.Exit(2)
+    }
 
-    moduleName = "Kafka"
-    installPhase(4, moduleName)
+    if 0 == typ {
+        fmt.Println(aurora.Blue("Install Process Start"))
 
-    moduleName = "Storm"
-    installPhase(5, moduleName)
+        moduleName := "Hadoop"
+        installPhase(1, moduleName)
 
-    extraModule := "DPMonitor"
-    installPhase(6, extraModule)
+        moduleName = "Zookeeper"
+        installPhase(2, moduleName)
 
-    extraModule = "DPMetrics"
-    installPhase(7, extraModule)
+        moduleName = "Hbase"
+        installPhase(3, moduleName)
 
-    // todo: write config to let ui and monitor use
+        moduleName = "Kafka"
+        installPhase(4, moduleName)
+
+        moduleName = "Storm"
+        installPhase(5, moduleName)
+
+        extraModule := "DPMonitor"
+        installPhase(6, extraModule)
+
+        extraModule = "DPMetrics"
+        installPhase(7, extraModule)
+
+    } else if 1 == typ {
+        fmt.Println(aurora.Blue("Add Node Process Start"))
+
+        // todo
+    }
+
+    util.SaveConfigToLocal()
+    fmt.Println(aurora.Magenta("All done, goodbye !"))
 }

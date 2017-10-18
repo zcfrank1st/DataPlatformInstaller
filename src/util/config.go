@@ -2,9 +2,11 @@ package util
 
 // todo cluster global variables
 
-var ()
+var (
+
+)
 
 
-func SaveToJson() {
-
+func SaveConfigToLocal() {
+    //todo write config to let ui and monitor use
 }
