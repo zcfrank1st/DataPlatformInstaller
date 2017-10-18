@@ -42,13 +42,31 @@ func installModule(moduleName string) {
     printNodes()
     switch moduleName {
     case "Hadoop":
-        fmt.Println(aurora.Green("[Master]: "))
-        master := readConsole()
-        fmt.Println(master)
+        master := ""
+        slaves := []string{}
+        for {
+            fmt.Println(aurora.Green("[Master]: "))
+            master = readConsole()
+            checkRes := util.CheckIfInLicencedIps([]string{master})
+            if checkRes {
+                fmt.Println("master: "  + master)
+                break
+            } else {
+                fmt.Println(aurora.Red("[Warning] not supported IP(s)! Please retry "))
+            }
+        }
 
-        fmt.Println(aurora.Green("[Slaves]: "))
-        slaves := readConsole()
-        fmt.Println(slaves)
+        for {
+            fmt.Println(aurora.Green("[Slaves](use , to split): "))
+            slaves = strings.Split(readConsole(), ",")
+            checkRes := util.CheckIfInLicencedIps(slaves)
+            if checkRes {
+                fmt.Println(slaves)
+                break
+            } else {
+
+            }
+        }
 
         module.InstallHadoop()
     case "Zookeeper":

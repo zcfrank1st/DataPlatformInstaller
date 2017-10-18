@@ -21,3 +21,21 @@ func CheckLicencedIPs(num int, ips string) error {
         return errors.New("ip numbers not match")
     }
 }
+
+func CheckIfInLicencedIps(ips []string) bool {
+    count := 0
+    for ip := range ips {
+        for node := range Nodes {
+            if ips[ip] == Nodes[node] {
+                count ++
+            }
+        }
+    }
+
+
+    if count == len(ips) {
+        return true
+    } else {
+        return false
+    }
+}
