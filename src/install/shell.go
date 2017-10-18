@@ -64,7 +64,7 @@ func installModule(moduleName string) {
                 fmt.Println(slaves)
                 break
             } else {
-
+                fmt.Println(aurora.Red("[Warning] not supported IP(s)! Please retry "))
             }
         }
 
