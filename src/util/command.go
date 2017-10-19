@@ -22,7 +22,3 @@ func Scp(hosts string) {
     // todo scp
     commandRun("scp", "")
 }
-
-func Cat() {}
-
-func Grep() {}

@@ -34,6 +34,10 @@ func printInstallStep(step int, moduleName string) {
     fmt.Println(aurora.Green(fmt.Sprintf("%d) Install %s? (Yy/Nn)", step, moduleName)))
 }
 
+func printAddNodeStep(step int, moduleName string) {
+    fmt.Println(aurora.Green(fmt.Sprintf("%d) Add %s node ? (Yy/Nn)", step, moduleName)))
+}
+
 func printNodes() {
     fmt.Println(aurora.Magenta(fmt.Sprintf("IPs from %s", util.Nodes)))
 }
@@ -44,6 +48,7 @@ func installModule(moduleName string) {
     case "Hadoop":
         master := ""
         slaves := []string{}
+
         for {
             fmt.Println(aurora.Green("[Master]: "))
             master = readConsole()
@@ -79,11 +84,23 @@ func installModule(moduleName string) {
     }
 }
 
-func installLoop(moduleName string) {
+func addModule(moduleName string) {
+    // todo
+    printNodes()
+    switch moduleName {
+    case "Hadoop":
+    case "Zookeeper":
+    case "Hbase":
+    case "Kafka":
+    case "Storm":
+    }
+}
+
+func installOrAddLoop(moduleName string, f func (string)) {
     for {
         inputIgnoreCase := strings.ToLower(readConsole())
         if "y" == inputIgnoreCase {
-            installModule(moduleName)
+            f(moduleName)
             break
         } else if "n" == inputIgnoreCase {
             break
@@ -95,7 +112,12 @@ func installLoop(moduleName string) {
 
 func installPhase (step int, moduleName string) {
     printInstallStep(step, moduleName)
-    installLoop(moduleName)
+    installOrAddLoop(moduleName, installModule)
+}
+
+func addNodePhase (step int, moduleName string) {
+    printAddNodeStep(step, moduleName)
+    installOrAddLoop(moduleName, addModule)
 }
 
 
@@ -126,6 +148,8 @@ func main() {
     }
 
     if 0 == typ {
+        // todo wget parcel, then unzip
+
         fmt.Println(aurora.Blue("Install Process Start"))
 
         moduleName := "Hadoop"
@@ -152,7 +176,22 @@ func main() {
     } else if 1 == typ {
         fmt.Println(aurora.Blue("Add Node Process Start"))
 
-        // todo
+        // todo check parcel if released, dirs if exists
+
+        moduleName := "Hadoop"
+        addNodePhase(1, moduleName)
+
+        moduleName = "Zookeeper"
+        addNodePhase(2, moduleName)
+
+        moduleName = "Hbase"
+        addNodePhase(3, moduleName)
+
+        moduleName = "Kafka"
+        addNodePhase(4, moduleName)
+
+        moduleName = "Storm"
+        addNodePhase(5, moduleName)
     }
 
     util.SaveConfigToLocal()
