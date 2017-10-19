@@ -5,7 +5,7 @@ import (
     "os"
 )
 
-const WGET_DIR = "/Users/zcfrank1st/Desktop/"
+const WGET_DIR = "/opt"
 
 func commandRun (name string, arg ...string) {
     cmd := exec.Command(name, arg...)

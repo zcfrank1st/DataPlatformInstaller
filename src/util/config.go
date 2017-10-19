@@ -1,12 +1,17 @@
 package util
 
-// todo cluster global variables
+import (
+    "encoding/json"
+    "io/ioutil"
+)
+
 var (
     RoleMapper map[string]string  // {"NameNode": "192.168.33.1", }
 )
 
 
 func SaveConfigToLocal() {
-    //todo write config to let ui and monitor use
-
+    //config, to let ui and monitor use
+    jsonString, _ := json.Marshal(RoleMapper)
+    ioutil.WriteFile("/etc/dpi.conf", jsonString, 0777)
 }
