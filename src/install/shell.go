@@ -176,7 +176,10 @@ func main() {
     } else if 1 == typ {
         fmt.Println(aurora.Blue("Add Node Process Start"))
 
-        // todo check parcel if released, dirs if exists
+        if !util.IfFirstInstallDirsExists() {
+            fmt.Println(aurora.Red("[ERROR] Can not find the first install parcel ! "))
+            os.Exit(3)
+        }
 
         moduleName := "Hadoop"
         addNodePhase(1, moduleName)

@@ -1,6 +1,13 @@
 package util
 
+import "os"
 
-func CheckDirs() {
-    // todo
+func IfFirstInstallDirsExists() bool{
+    _, err := os.Stat("/opt/dpi")
+
+    if err != nil {
+        return false
+    } else {
+        return true
+    }
 }
