@@ -149,6 +149,7 @@ func main() {
     }
 
     if 0 == typ {
+        fmt.Println(aurora.Magenta("Loading dependencies from the repo, Please waiting ... "))
         // todo wget parcel, then unzip
 
         fmt.Println(aurora.Blue("Install Process Start"))
