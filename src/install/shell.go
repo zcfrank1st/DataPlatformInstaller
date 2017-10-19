@@ -43,6 +43,7 @@ func printNodes() {
 }
 
 func installModule(moduleName string) {
+    // todo install modules
     printNodes()
     switch moduleName {
     case "Hadoop":
@@ -85,7 +86,7 @@ func installModule(moduleName string) {
 }
 
 func addModule(moduleName string) {
-    // todo
+    // todo add modules
     printNodes()
     switch moduleName {
     case "Hadoop":
