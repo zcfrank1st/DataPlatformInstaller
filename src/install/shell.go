@@ -79,9 +79,6 @@ func installModule(moduleName string) {
     case "Hbase":
     case "Kafka":
     case "Storm":
-
-    case "DPMonitor":
-    case "DPMetrics":
     }
 }
 
