@@ -13,5 +13,5 @@ var (
 func SaveConfigToLocal() {
     //config, to let ui and monitor use
     jsonString, _ := json.Marshal(RoleMapper)
-    ioutil.WriteFile("/etc/dpi.conf", jsonString, 0777)
+    ioutil.WriteFile(DPI_CONFIG_FILE, jsonString, 0777)
 }

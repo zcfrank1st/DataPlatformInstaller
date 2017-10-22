@@ -10,11 +10,6 @@ import (
     "util"
 )
 
-const (
-    RESOURCE_URL = ""
-    VERSION = "0.1.0"
-)
-
 var scanner *bufio.Scanner
 
 func init () {
@@ -133,7 +128,7 @@ func main() {
 |  _ \|  _ \_ _|
 | | | | |_) | |
 | |_| |  __/| |
-|____/|_|  |___| v` + VERSION))
+|____/|_|  |___| v` + util.VERSION))
 
     fmt.Println()
 
@@ -156,8 +151,8 @@ func main() {
     if 0 == typ {
         fmt.Println(aurora.Magenta("Loading dependencies from the repo, Please waiting ... "))
         // DPI-0.1.0.box
-        util.Wget(RESOURCE_URL, "/tmp")
-        util.UnTar("/tmp/DPI-" + VERSION + ".box")
+        util.Wget(util.RESOURCE_URL + "/DPI-" + util.VERSION + ".box", "/tmp")
+        util.UnTar("/tmp/DPI-" + util.VERSION + ".box")
 
         fmt.Println(aurora.Blue("Install Process Start"))
 
