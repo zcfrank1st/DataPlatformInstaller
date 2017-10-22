@@ -16,9 +16,11 @@ func Wget(url string, targetDir string) {
     commandRun("wget", "-P", targetDir, url)
 }
 
-func Scp(hosts string) {
-    // todo scp
-    commandRun("scp", "")
+func Scp(hosts []string) {
+    // scp -r /opt/soft/test root@10.6.159.147:/opt/soft/scptest
+    for idx := range hosts {
+        commandRun("scp", "-r", DPI_DIR, "root@" + hosts[idx] + ":/opt")
+    }
 }
 
 func UnTar(packageName string) {
