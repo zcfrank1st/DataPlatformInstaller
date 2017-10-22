@@ -186,7 +186,7 @@ func main() {
         fmt.Println(aurora.Blue("Add Node Process Start"))
 
         if !util.IfFirstInstallDirsExists() {
-            fmt.Println(aurora.Red("[ERROR] Can not find the first install parcel ! "))
+            fmt.Println(aurora.Red("[ERROR] Can not find the first install box ! "))
             os.Exit(3)
         }
 
