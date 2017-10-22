@@ -5,8 +5,6 @@ import (
     "os"
 )
 
-const WGET_DIR = "/opt"
-
 func commandRun (name string, arg ...string) {
     cmd := exec.Command(name, arg...)
     cmd.Stdout = os.Stdout
@@ -14,8 +12,8 @@ func commandRun (name string, arg ...string) {
     cmd.Run()
 }
 
-func Wget(url string) {
-    commandRun("wget", "-P", WGET_DIR, url)
+func Wget(url string, targetDir string) {
+    commandRun("wget", "-P", targetDir, url)
 }
 
 func Scp(hosts string) {
@@ -23,6 +21,6 @@ func Scp(hosts string) {
     commandRun("scp", "")
 }
 
-func Tar() {
-
+func UnTar(packageName string) {
+    commandRun("tar", "-xvf", packageName)
 }
