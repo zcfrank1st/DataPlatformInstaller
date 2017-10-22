@@ -11,4 +11,10 @@ DataPlatformInstaller
 
 * default install `MetricUI` and `MetricMonitor` on install machine
 
+## Graph
+
+> minimum cluster install
+
+![DPI](./DPI-example.png)
+
 ## Licence
