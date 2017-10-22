@@ -151,8 +151,8 @@ func main() {
     if 0 == typ {
         fmt.Println(aurora.Magenta("Loading dependencies from the repo, Please waiting ... "))
         // DPI-0.1.0.box
-        util.Wget(util.RESOURCE_URL + "/DPI-" + util.VERSION + ".box", "/tmp")
-        util.UnTar("/tmp/DPI-" + util.VERSION + ".box")
+        util.Wget(util.RESOURCE_URL + "/DPI-" + util.VERSION + ".box", "/opt")
+        util.UnTar("/opt/DPI-" + util.VERSION + ".box")
 
         fmt.Println(aurora.Blue("Install Process Start"))
 
@@ -201,6 +201,6 @@ func main() {
         addNodePhase(5, moduleName)
     }
 
-    util.SaveConfigToLocal()
+    util.SaveOrUpdateConfigToLocal()
     fmt.Println(aurora.Magenta("All done, goodbye !"))
 }
