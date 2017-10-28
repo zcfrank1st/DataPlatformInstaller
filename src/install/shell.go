@@ -168,11 +168,7 @@ func main() {
         moduleName = "Storm"
         installPhase(5, moduleName)
 
-        extraModule := "DPMonitor"
-        installPhase(6, extraModule)
-
-        extraModule = "DPMetrics"
-        installPhase(7, extraModule)
+        // default: install DPMonitor and DPMetrics
 
     } else if 1 == typ {
         fmt.Println(aurora.Blue("Add Node Process Start"))
