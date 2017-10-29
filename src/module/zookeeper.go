@@ -1,7 +1,8 @@
 package module
 
-func InstallZookeeper () {
+func InstallZookeeper (nodes []string) error {
     // todo
+    return nil
 }
 
 func AddZookeeperNode() {}

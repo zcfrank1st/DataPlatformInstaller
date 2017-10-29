@@ -42,7 +42,7 @@ func printNodes() {
     fmt.Println(aurora.Magenta(fmt.Sprintf("IPs from %s", util.Nodes)))
 }
 
-// todo install modules
+// todo
 func installModule(moduleName string) {
     printNodes()
     switch moduleName {
@@ -80,13 +80,33 @@ func installModule(moduleName string) {
             os.Exit(10)
         }
     case "Zookeeper":
+        zkNodes := []string{}
+
+        for {
+            fmt.Println(aurora.Green("[Nodes](use , to split): "))
+            zkNodes = strings.Split(strings.Replace(readConsole(), " ", "", -1), ",")
+            checkRes := util.CheckIfInLicencedIps(zkNodes)
+            if checkRes {
+                fmt.Println(zkNodes)
+                break
+            } else {
+                fmt.Println(aurora.Red("[Warning] not supported IP(s)! Please retry "))
+            }
+        }
+
+        err := module.InstallZookeeper(zkNodes)
+        if err != nil {
+            fmt.Println(aurora.Red(err))
+            os.Exit(11)
+        }
+
     case "Hbase":
     case "Kafka":
     case "Storm":
     }
 }
 
-// todo add modules
+// todo
 func addModule(moduleName string) {
     printNodes()
     switch moduleName {
@@ -152,8 +172,16 @@ func main() {
     if 0 == typ {
         fmt.Println(aurora.Magenta("Loading dependencies from the repo, Please waiting ... "))
         // DPI-0.1.0.box
-        util.Wget(util.RESOURCE_URL + "/DPI-" + util.VERSION + ".box", "/opt")
-        util.UnTar("/opt/DPI-" + util.VERSION + ".box")
+        wgetErr := util.Wget(util.RESOURCE_URL + "/DPI-" + util.VERSION + ".box", "/opt")
+        if wgetErr != nil {
+            fmt.Println(aurora.Red("[ERROR] fetch dependency box error!"))
+            os.Exit(3)
+        }
+        unTarErr := util.UnTar("/opt/DPI-" + util.VERSION + ".box")
+        if unTarErr != nil {
+            fmt.Println(aurora.Red("[ERROR] release modules error!"))
+            os.Exit(4)
+        }
 
         fmt.Println(aurora.Blue("Install Process Start"))
 
