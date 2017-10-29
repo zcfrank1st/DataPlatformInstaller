@@ -42,8 +42,8 @@ func printNodes() {
     fmt.Println(aurora.Magenta(fmt.Sprintf("IPs from %s", util.Nodes)))
 }
 
+// todo install modules
 func installModule(moduleName string) {
-    // todo install modules
     printNodes()
     switch moduleName {
     case "Hadoop":
@@ -64,7 +64,7 @@ func installModule(moduleName string) {
 
         for {
             fmt.Println(aurora.Green("[Slaves](use , to split): "))
-            slaves = strings.Split(readConsole(), ",")
+            slaves = strings.Split(strings.Replace(readConsole(), " ", "", -1), ",")
             checkRes := util.CheckIfInLicencedIps(slaves)
             if checkRes {
                 fmt.Println(slaves)
@@ -74,7 +74,11 @@ func installModule(moduleName string) {
             }
         }
 
-        module.InstallHadoop()
+        err := module.InstallHadoop(master, slaves)
+        if err != nil {
+            fmt.Println(aurora.Red(err))
+            os.Exit(10)
+        }
     case "Zookeeper":
     case "Hbase":
     case "Kafka":
@@ -82,8 +86,8 @@ func installModule(moduleName string) {
     }
 }
 
+// todo add modules
 func addModule(moduleName string) {
-    // todo add modules
     printNodes()
     switch moduleName {
     case "Hadoop":
@@ -174,7 +178,7 @@ func main() {
         fmt.Println(aurora.Blue("Add Node Process Start"))
 
         if !util.IfFirstInstallDirsExists() {
-            fmt.Println(aurora.Red("[ERROR] Can not find the first install box ! "))
+            fmt.Println(aurora.Red("[ERROR] Can not find the install box ! "))
             os.Exit(3)
         }
 
