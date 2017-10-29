@@ -18,3 +18,5 @@ DataPlatformInstaller
 ![DPI](./DPI-example.png)
 
 ## Licence
+
+Apache
