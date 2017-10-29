@@ -131,7 +131,7 @@ func main() {
 
 
     //初始安装licence，增加节点licence
-    fmt.Println(aurora.BgGray(aurora.Black("@@[Licence]@@ Please input install licence :")))
+    fmt.Println(aurora.BgGray(aurora.Black("@[Licence] Please input install licence :")))
     typ, err, num := util.CheckLicence(readConsole())
     if err != nil {
         fmt.Println(aurora.Red("[ERROR] Invalid Licence !"))
