@@ -5,7 +5,7 @@ DataPlatformInstaller
 
 ## Description
 
-* env must set well, for example `ssh` or what ever
+* env must set well, for example `ssh` `java` etc.
 
 * current version contains `hadoop`, `zookeeper`, `hbase`, `kafka`, `storm`
 
